@@ -76,6 +76,10 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String KEY_HOME_DOUBLE_TAP = "hardware_keys_home_double_tap";
     private static final String KEY_MENU_PRESS = "hardware_keys_menu_press";
     private static final String KEY_MENU_LONG_PRESS = "hardware_keys_menu_long_press";
+    /* ---------------------------------------------------- */
+    private static final String KEY_BACK_LONG_PRESS = "hardware_keys_back_long_press";
+    private static final String KEY_BACK_DOUBLE_TAP = "hardware_keys_back_double_tap";
+    /* ---------------------------------------------------- */
     private static final String KEY_ASSIST_PRESS = "hardware_keys_assist_press";
     private static final String KEY_ASSIST_LONG_PRESS = "hardware_keys_assist_long_press";
     private static final String KEY_APP_SWITCH_PRESS = "hardware_keys_app_switch_press";
@@ -130,6 +134,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 
     private ListPreference mHomeLongPressAction;
     private ListPreference mHomeDoubleTapAction;
+    private ListPreference mBackLongPressAction;
+    private ListPreference mBackDoubleTapAction;
     private ListPreference mMenuPressAction;
     private ListPreference mMenuLongPressAction;
     private ListPreference mAssistPressAction;
@@ -310,9 +316,18 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         if (hasBackKey) {
             if (!showBackWake) {
                 backCategory.removePreference(findPreference(CMSettings.System.BACK_WAKE_SCREEN));
-                prefScreen.removePreference(backCategory);
-            }
-        } else {
+                //prefScreen.removePreference(backCategory);
+	    }
+	    int longPressAction = CMSettings.System.getInt(resolver,
+		    CMSettings.System.KEY_BACK_LONG_PRESS_ACTION, ACTION_NOTHING);
+	    mBackLongPressAction = initActionList(KEY_BACK_LONG_PRESS, longPressAction);
+
+	    int doubleTapAction = CMSettings.System.getInt(resolver,
+		    CMSettings.System.KEY_BACK_DOUBLE_TAP_ACTION, ACTION_NOTHING);
+	    mBackDoubleTapAction = initActionList(KEY_BACK_DOUBLE_TAP, doubleTapAction);
+
+	    hasAnyBindableKey = true;
+	} else {
             prefScreen.removePreference(backCategory);
         }
 
@@ -509,7 +524,15 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             handleActionListChange(mHomeDoubleTapAction, newValue,
                     CMSettings.System.KEY_HOME_DOUBLE_TAP_ACTION);
             return true;
-        } else if (preference == mMenuPressAction) {
+        } else if (preference == mBackLongPressAction) {
+	    handleActionListChange(mBackLongPressAction, newValue,
+		    CMSettings.System.KEY_BACK_LONG_PRESS_ACTION);
+	    return true;
+	} else if (preference == mBackDoubleTapAction) {
+	    handleActionListChange(mBackDoubleTapAction, newValue,
+		    CMSettings.System.KEY_BACK_DOUBLE_TAP_ACTION);
+	    return true;
+	} else if (preference == mMenuPressAction) {
             handleActionListChange(mMenuPressAction, newValue,
                     CMSettings.System.KEY_MENU_ACTION);
             return true;
