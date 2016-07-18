@@ -320,11 +320,11 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 	    }
 	    int longPressAction = CMSettings.System.getInt(resolver,
 		    CMSettings.System.KEY_HOME_LONG_PRESS_ACTION, ACTION_NOTHING);
-	    mBackLongPressAction = initActionList(KEY_HOME_LONG_PRESS, longPressAction);
+	    mHomeLongPressAction = initActionList(KEY_HOME_LONG_PRESS, longPressAction);
 
 	    int doubleTapAction = CMSettings.System.getInt(resolver,
 		    CMSettings.System.KEY_HOME_DOUBLE_TAP_ACTION, ACTION_NOTHING);
-	    mBackDoubleTapAction = initActionList(KEY_HOME_DOUBLE_TAP, doubleTapAction);
+	    mHomeDoubleTapAction = initActionList(KEY_HOME_DOUBLE_TAP, doubleTapAction);
 
 	    hasAnyBindableKey = true;
 	} else {
@@ -524,15 +524,15 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             handleActionListChange(mHomeDoubleTapAction, newValue,
                     CMSettings.System.KEY_HOME_DOUBLE_TAP_ACTION);
             return true;
-        } else if (preference == mBackLongPressAction) {
-	    handleActionListChange(mBackLongPressAction, newValue,
+        } else if (preference == mHomeLongPressAction) {
+	    handleActionListChange(mHomeLongPressAction, newValue,
 		    CMSettings.System.KEY_HOME_LONG_PRESS_ACTION);
 	    return true;
-	} else if (preference == mBackDoubleTapAction) {
-	    handleActionListChange(mBackDoubleTapAction, newValue,
+	} /*else if (preference == mHomeDoubleTapAction) {
+	    handleActionListChange(mHomeDoubleTapAction, newValue,
 		    CMSettings.System.KEY_HOME_DOUBLE_TAP_ACTION);
 	    return true;
-	} else if (preference == mMenuPressAction) {
+        }*/ else if (preference == mMenuPressAction) {
             handleActionListChange(mMenuPressAction, newValue,
                     CMSettings.System.KEY_MENU_ACTION);
             return true;
