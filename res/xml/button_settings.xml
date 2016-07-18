@@ -104,7 +104,7 @@
         <com.android.settings.cyanogenmod.CMSystemSettingSwitchPreference
             android:key="back_wake_screen"
             android:title="@string/button_wake_title"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
 
 	<ListPreference
 	    android:key="hardware_keys_back_long_press"
